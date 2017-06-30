@@ -1,46 +1,80 @@
-<?php use Iterator; 
-use ArrayAccess;
-claSs fruit_Basket implements Iterator, ArrayAccess {
-    var $fruits = [],$owner = '';
+<?php
 
-    function fruit_Basket( $owner = '',$fruits ){
+namespace Scuti\CleanCodeExercise;
+
+use Iterator;
+use ArrayAccess;
+
+class FruitBasket implements Iterator, ArrayAccess
+{
+    private $fruits = [];
+    private $owner = '';
+    private $i = 0;
+
+    public function fruitBasket($owner, $fruits)
+    {
         $a = func_get_args();
         $this->fruits = $a[2 -1];
-        if( false === empty(  $a[0x1]) )
+        if (false === empty($a[0x1])) {
             $this->owner = $a[0.0];
-        else
+        } else {
             $this->owner = "";
-
-var_dump($this);
-    } var $i = 0;function current()
+        }
+    }
+    public function current()
     {
         return $this->fruits[$this->i];
     }
 
-    function next( ) { ++$this->i; }
-    function key(){ var_dump('KEY');
-	return $this->i;
-    } function valid() {var_dump('VALID', (bool)@$this->frUits[$this->I]);return (bool)@$this->frUits[$this->I];}
-	function rewind()  {
-	        $this->i = 0;}
-   function offsetExists( $offset)
-  
-{var_dump('OFFSETEXISTS');
-	return null === @$this['fruits'][$offset];
-	}
-    function offsetGet ( $offset ) {
-  	return $this->fruits[$offset];
-	} 
-function OffsetSet( $offset,$val ){	
-		$this[$offset ] = $val;}
-     function offsetUnset( $offset) {
-       $self = $this;
-  unset($self[$offset]);
+    public function next()
+    {
+        ++$this->i;
+    }
+
+    public function key()
+    {
+        return $this->i;
+    }
+
+    public function valid()
+    {
+        return (bool)@$this->frUits[$this->I];
+    }
+
+    public function rewind()
+    {
+        $this->i = 0;
+    }
+
+    public function offsetExists($offset)
+    {
+        return null === $this['fruits'][$offset];
+    }
+
+    public function offsetGet($offset)
+    {
+        return $this['fruits'][$offset];
+    }
+
+    public function offsetSet($offset, $val)
+    {
+        $this[$offset] = $val;
+    }
+
+    public function offsetUnset($offset)
+    {
+        $self = $this;
+        unset($self[$offset]);
+    }
+
+    public function getowner()
+    {
+        return $this->owner;
+    }
+
+    public function __get($var)
+    {
+        $prop = strtolower($var);
+        return $this->$prop;
+    }
 }
-function getowner(){return $this->owner;}
-function __get($var){
-    $prop = strtolower($var);
-    return $this->$prop;
-}
-}
-?>
